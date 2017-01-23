@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>HereACG FM2.0 - 二次元专属FM</title>
+	<meta name="keywords" content="音乐,Here 二次元！,HereACG,ACG,二次元,动漫音乐,萌化电台,萌化FM,萌化音乐,萌,FM动漫电台" />
+    <meta name="description" content="这是一个基于web,用于在线听歌的应用程序,它能够听到来自99%的动漫OP|ED|插曲音乐,并且它将会终身免费收听没有任何广告" />
+	<link type="text/css" rel="stylesheet" href="css/home.css" />
+</head>
+<body style="background-color: #000; font-family:'Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',SimSun,Tahoma,Arial,Helvetica,STHeiti; margin: 0; " onkeypress="moveBox()">
+<div style="position: absolute; left: 15%; bottom: 45%; background-color: rgba(0,0,0,0.5); width: 70%; height: 45%; border-radius: 5px; z-index: 999; overflow: hidden; opacity: 0; display:none; " id="WLrcBox">
+    <div id="lrcBox" class="lrc-box" style="margin-top: 0px; color: rgb(162,162,162); text-align: center;"></div>
+</div>
+<div id="FM_Left">
+    <div id="Button_LeftOrRigth" class="Icon_Right"></div>
+    <div id="FM_Info">
+        <h3>加载中...</h3>
+        <h5></h5>
+        <img style="opacity:0;width:275px;height:127px;" onload="$(this).css('opacity', '1');" />
+        <span style="margin: 10px 0 0 110px;"><a class="Icon_DownLoad" title="下载" onclick="$('.FM_DownLoad:eq(0)').css('left', '0px');"></a><a id="FM_PlayStatus" class="Icon_Random" title="全站随机播放" onclick="PlayStatus();"></a><a id="FM_Mute" class="Icon_horn" title="声音" onclick="SetV(this);"></a></span>
+        <script>
+            var Old_Volume = 1;
+            function SetV(obj) {
+                if (Audio_.volume == 0) {
+                    Audio_.volume = Old_Volume;
+                    $(obj).removeClass().addClass("Icon_horn");
+                }
+                else {
+                    Old_Volume = Audio_.volume;
+                    Audio_.volume = 0;
+                    $(obj).removeClass().addClass("Icon_mute");
+                }
+            }
+        </script>
+    </div>
+    <div id="FM_List" style="height:0px;overflow-y :auto;">
+    </div>
+    <div id="FM_Progress" onclick="Go(event);">
+        <div></div>
+        <div></div>
+    </div>
+    <div id="FM_Button" style="position: absolute;bottom: 80px; width: 100%;  height: 60px;">
+        <span id="Button_Play" class="Icon_Pause"></span>
+        <span id="Button_Back"></span>
+        <span id="FM_Time"><span style="font-size:18px">0:00</span><span style="font-size:30px;margin-left:5px;">0:00</span></span>
+        <img src="/images/iconfont-yousuojin.png" style="margin: 83px 0 0 22px;cursor: pointer;" onclick="ShowOrHideList();">
+        <script>
+            function ShowOrHideList() {
+                if ($('#FM_Right_List').css('right') == "0px") {
+                    $('#FM_Right_List').css('right', "-100%");
+                    $("#FM_Button>img").attr("src", "/images/iconfont-yousuojin.png");
+                    window.localStorage.RightList = 1;
+                }
+                else {
+                    $('#FM_Right_List').css('right', "0px");
+                    $("#FM_Button>img").attr("src", "/images/iconfont-zuosuojin.png");
+                    window.localStorage.RightList = 0;
+                }
+            }
+        </script>
+    </div>
+</div>
+<div id="FM_Header"><span id="FM_Serach"><input type="text" placeholder="搜索:输入动漫/专题或歌曲名称" oninput="SearchTo();"><span title="退出搜索" onclick="ExitSearch();">×</span></span></div>
+<div id="FM_Right" style="overflow-y :auto;">
+    <div id="FM_Right_List">
+        <img id="Top" src="/images/iconfont-feiji.png" style="position: fixed;right: 25px;bottom: 30px;display:none;cursor:pointer;z-index:999;" alt="回到顶部" title="回到顶部">
+    </div>
+</div>
+<script src="JavaScript/jquery-1.7.1.min.music.js"></script>
+<script src="JavaScript/New_Music.js"></script>
+<script src="JavaScript/home.js"></script>
+    <div style="display: none">
+    </div>
+    <canvas id="canvas_c" style="position: fixed; left: 50%; margin-left: -200px; top: 50%; margin-top: -150px;z-index:-99;"></canvas>
+    <script>
+      //$(function () {window.localStorage.clear();});
+        //ShowLoading_Canvas("canvas_c");
+        //setInterval(function () {
+        //    try {
+        //        if ($("#backstretch_img").css("opacity") != 0.5) {
+        //            $("#canvas_c").css("opacity", "1");
+        //        }
+        //        else {
+        //            $("#canvas_c").css("opacity", "0");
+        //        }
+        //    }
+        //    catch (data) {
+        //    }
+        //}, 1000);
+	  $(function (){ShowOrHideList();});
+    </script>
+</body>
+</html>
